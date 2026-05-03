@@ -11,6 +11,45 @@ public class TwoPointer {
     //maxRainWater2 : O(n) time, O(1) space
 
     /**
+     * Count and say
+     * 1
+     * 11
+     * 21
+     * 1211
+     * 111221
+     *
+     * input : 5, output : 111221
+     * @param n
+     * @return
+     */
+
+    public String countAndSay(int n) {
+        if(n == 1) return "1";
+        String res = "11";
+        for(int i=2; i<n; i++){
+            res = formResult(res);
+        }
+        return res;
+    }
+
+    public String formResult(String res){
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+        for(int j=1; j<res.length(); j++){//
+            if(res.charAt(j)==res.charAt(j-1)){
+                count++;
+            }
+            else {
+                sb.append(count).append(res.charAt(j-1));
+                count = 1;
+            }
+
+        }
+        sb.append(count).append(res.charAt(res.length()-1));
+        return sb.toString();
+    }
+
+    /**
      * Input: nums = [2, 7, 11, 15], target = 9
      * Output: [0, 1]
      */

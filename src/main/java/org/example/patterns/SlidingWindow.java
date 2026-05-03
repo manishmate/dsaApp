@@ -33,7 +33,7 @@ public class SlidingWindow {
         return maxLength;
     }
 
-    /**
+    /** Minimum Window Substring (🔥 Important)
      * Input: str = "ADOBECODEBANC", target = "ABC"
      * Output: "BANC"
      */
@@ -93,10 +93,13 @@ public class SlidingWindow {
         return maxSum;
     }
 
-    /**
+    /** Longest Repeating Character Replacement
      * Input: s = "AABABBA", k = 1
      * Output: 4
-     * What is the longest substring with same character
+     *
+     * Formula : Window Size - Max Frequency = Characters to Replace (k)
+     *
+     * the longest substring with same character,
      * I can create if I am allowed to change up to k characters to any other character?
      * Replacements Needed = Window Size - Max Frequency
      */
@@ -107,7 +110,7 @@ public class SlidingWindow {
         for (int right = 0; right < s.length(); right++) {
             count[s.charAt(right) - 'A']++;
             int window = (right - left + 1);
-            while (window - getMaxFreq(count) <= k) {
+            while (window - getMaxFreq(count) >= k) {
                 count[s.charAt(left) - 'A']--;
                 left++;
             }
@@ -136,12 +139,13 @@ public class SlidingWindow {
             char c = s.charAt(right);
             count[c - 'A']++;
             maxRepeatCount = Math.max(maxRepeatCount, count[c - 'A']);
-            int window = (right - left + 1);
-            while (window - maxRepeatCount <= k) {
+            //int window = (right - left + 1);
+            //dont use variable bcos left is updating
+            while ((right - left + 1) - maxRepeatCount > k) {
                 count[s.charAt(left) - 'A']--;
                 left++;
             }
-            maxLength = Math.max(maxLength, window);
+            maxLength = Math.max(maxLength, right - left + 1);
         }
         return maxLength;
     }
